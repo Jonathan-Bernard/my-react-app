@@ -1,34 +1,37 @@
+import { useState } from "react";
 
 
-function NavBar({ pokemonIndex, setPokemonIndex, pokemonList }) {
+function NavBar({ pokemonList }) {
+    const [currentPokemon, setCurrentPokemon] = useState();
 
-    const handleOnclickPlus = () => {
-        if (pokemonIndex < pokemonList.length - 1) {
-            setPokemonIndex(pokemonIndex + 1);
-        }
+    const handlePokemonClick = (pokemon) => {
+        setCurrentPokemon(pokemon);
     }
-
-    const handleOnclickLess = () => {
-        if (pokemonIndex > 0) {
-            setPokemonIndex(pokemonIndex - 1);
-        }
-    }
-
     return (
-        <nav>
-            {pokemonIndex > 0 && <button onClick={handleOnclickLess}>Précédent</button>}
-            {pokemonIndex < pokemonList.length - 1 && <button onClick={handleOnclickPlus}>Suivant</button>}
-        </nav>
+        <div>
+            <h1>Liste des Pokemon</h1>
+
+            {currentPokemon && (
+                <div>
+                    <img src={currentPokemon.imgSrc} alt={currentPokemon.name} />
+                    <h2>{currentPokemon.name}</h2>
+                </div>
+            )}
+
+            <nav>
+                <ul>
+                    {pokemonList.map((pokemon, pokemonIndex) => (
+                        <li key={pokemonIndex}>
+                            <button onClick={() => handlePokemonClick(pokemon)}>
+                                {pokemon.name}
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+        </div>
     );
 
-
-
 }
-
-
-
-
-
-
 
 export default NavBar;
