@@ -1,15 +1,19 @@
 import { useState } from "react";
 
-
 function NavBar({ pokemonList }) {
     const [currentPokemon, setCurrentPokemon] = useState();
 
     const handlePokemonClick = (pokemon) => {
         setCurrentPokemon(pokemon);
     }
+
+    const pikaPika = () => {
+        window.alert("PIKA PIKA !");
+    }
+
     return (
         <div>
-            <h1>Liste des Pokemon</h1>
+            <h1>Liste des Pokémon</h1>
 
             {currentPokemon && (
                 <div>
@@ -22,7 +26,15 @@ function NavBar({ pokemonList }) {
                 <ul>
                     {pokemonList.map((pokemon, pokemonIndex) => (
                         <li key={pokemonIndex}>
-                            <button onClick={() => handlePokemonClick(pokemon)}>
+                            <button onClick={() => {
+                                if (pokemon.name === "pikachu") {
+                                    handlePokemonClick(pokemon);
+                                    pikaPika();
+
+                                } else {
+                                    handlePokemonClick(pokemon);
+                                }
+                            }}>
                                 {pokemon.name}
                             </button>
                         </li>
@@ -31,7 +43,6 @@ function NavBar({ pokemonList }) {
             </nav>
         </div>
     );
-
 }
 
 export default NavBar;
